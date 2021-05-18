@@ -1,0 +1,19 @@
+{
+  "name": "s3-express-zip",
+  "version": "1.0.0",
+  "description": "Download multiple objects from S3 bucket to zip archive through stream",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "tsc"
+  },
+  "author": "Romain PIVETEAU",
+  "license": "ISC",
+  "dependencies": {
+    "@types/async": "^3.2.6",
+    "@types/node": "^15.3.0",
+    "async": "^3.2.0",
+    "zip-stream": "^4.1.0"
+  }
+}
