@@ -1,39 +1,43 @@
 import async from 'async';
-import http from 'http';
-// import expres from 'express';
-import https from "https";
+import {WriteStream} from 'fs';
 
 const zipstream = require('zip-stream');
-
 const defaultZipOptions = {
   store: true
 };
 
-const defaultS3Options = {
-  httpOptions: {
-    timeout: 60_000 * 60 * 24,
-    agent: new https.Agent({
-      timeout: 60_000 * 60 * 24,
-      maxTotalSockets: 100,
-      maxSockets: 1,
-    })
-  },
-  correctClockSkew: true
-};
+export default ({res, zipOptions}: { res: WriteStream|any; zipOptions?: {[key: string]: any} }) => {
+  if (!res) {
+    throw new Error('Missing witable stream in entry');
+  }
 
-export default (s3: any, s3Options = {}, zipOptions = {}, files: any[], filename: any, cb: any) => {
-  s3.config.update({...defaultS3Options, ...s3Options});
   const zip = zipstream({...defaultZipOptions, ...zipOptions});
+  zip.pipe(res);
 
-  const addFile = function(file: any, cb: any) {
-    zip.entry(file.stream, { name: file.name }, cb);
-  };
+  return (files: any[], cb: (error?: any, data?: any) => void = function(){}) => {
+    if (!files) {
+      throw new Error('Missing files to zip');
+    }
+    cb = cb || function (){}
 
-  async.forEachSeries(files, addFile, function(err) {
-    if (err) return cb(err);
-    zip.finalize();
-    cb(null, zip.getBytesWritten());
-  });
+    console.log("--------------------",files,"--------------------")
 
-  return zip.pipe;
+    const addFile = function(file: any, cb: any) {
+      console.log('Adding file ....')
+      zip.entry(file.stream, { name: file.name }, cb);
+    };
+
+    async.forEachSeries(files, addFile, function(err) {
+      if (err)
+        return cb(err);
+      zip.finalize();
+      cb(null, zip.getBytesWritten());
+    });
+  }
 }
+
+export {
+  getS3ObjectsList,
+  getHTTPHeaders,
+  getS3ObjectStream
+} from './lib';
