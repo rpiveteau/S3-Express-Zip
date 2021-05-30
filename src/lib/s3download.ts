@@ -24,8 +24,7 @@ const getObjectsList = async (s3: any, Bucket: string, Prefix: string) => new Pr
   return s3.listObjects({Bucket, Prefix}, (err: any, data: any) => {
     if (err)
       return resolve([err])
-    //@ts-ignore
-    resolve(data.Contents?.map(f => ({Key: f.Key, Size: f.Size, Bucket})));
+    resolve(data.Contents?.map((f: any) => ({Key: f.Key, Size: f.Size, Bucket})));
   })
 })
 const getStream = (s3: any, object: {Bucket: string; Key: string;}) => s3.getObject(object).createReadStream()

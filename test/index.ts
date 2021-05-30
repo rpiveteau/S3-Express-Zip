@@ -8,8 +8,8 @@ const stream = new PassThrough();
 const configS3 = {
   endpoint: 'https://s3.fr-par.scw.cloud',
   region: 'fr-par',
-  accessKeyId: 'SCW0VPRSQ09VSR2HFJ0K',
-  secretAccessKey: '7632e27b-7eac-44ba-84dc-c6fdaf125417',
+  accessKeyId: 'ACCESS_KEY_ID',
+  secretAccessKey: 'SECRET_ACCESS_KEY',
   httpOptions: {
     timeout: 60_000 * 60 * 24,
     agent: new https.Agent({
@@ -22,16 +22,14 @@ const configS3 = {
 };
 const s3 = new S3({
   endpoint: 'https://s3.fr-par.scw.cloud',
-  accessKeyId: 'SCW0VPRSQ09VSR2HFJ0K',
-  secretAccessKey: '7632e27b-7eac-44ba-84dc-c6fdaf125417',
+  accessKeyId: 'ACCESS_KEY_ID',
+  secretAccessKey: 'SECRET_ACCESS_KEY',
 });
 s3.config.update(configS3);
-const Bucket = 'testroro';
-const Prefix = 'justone';
-
+const Bucket = 'BUCKET_NAME';
+const Prefix = 'BUCKET_PREFIX';
 
 getS3ObjectsList(s3, Bucket, Prefix).then((list: any) => {
-  console.log(list)
   S3ExpressZip({res: stream})(list.map((f:any) => getS3ObjectStream(s3, f)), console.log);
 });
 

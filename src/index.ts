@@ -20,10 +20,7 @@ export default ({res, zipOptions}: { res: WriteStream|any; zipOptions?: {[key: s
     }
     cb = cb || function (){}
 
-    console.log("--------------------",files,"--------------------")
-
     const addFile = function(file: any, cb: any) {
-      console.log('Adding file ....')
       zip.entry(file.stream, { name: file.name }, cb);
     };
 
