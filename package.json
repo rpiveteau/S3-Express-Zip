@@ -1,4 +1,5 @@
 {
+  "homepage": "https://github.com/rpiveteau/S3-Express-Zip",
   "name": "s3-express-zip",
   "version": "1.0.0",
   "description": "Download multiple objects from S3 bucket to zip archive through stream",
@@ -19,5 +20,9 @@
   "devDependencies": {
     "aws-sdk": "^2.908.0",
     "ts-node-dev": "^1.1.6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:rpiveteau/S3-Express-Zip.git"
   }
 }
