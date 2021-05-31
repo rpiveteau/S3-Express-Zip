@@ -46,7 +46,7 @@ async function downloadFromS3KeepingPrefix(req, res) {
       .forEach((headerKey: string) => res.setHeader(headerKey, headers[headerKey]));
   
     // Finally send stream archive to client (or any writable stream)  
-    S3ExpressZip({res})(objectsList.map((f:any) => getS3ObjectStream(s3, f)), cb)
+    S3ExpressZip({res})(objects.map((f:any) => getS3ObjectStream(s3, f)), cb)
 }
 
 /**
@@ -74,7 +74,7 @@ async function downloadFromS3RemovingPrefix(req, res) {
       .forEach((headerKey: string) => res.setHeader(headerKey, headers[headerKey]));
 
     // Finally send stream archive to client (or any writable stream)
-    S3ExpressZip({res})(objectsList.map((f:any) => getS3ObjectStream(s3, f)), cb)
+    S3ExpressZip({res})(objects.map((f:any) => getS3ObjectStream(s3, f)), cb)
 }
 
 ```
