@@ -24,5 +24,20 @@
   "repository": {
     "type": "git",
     "url": "git@github.com:rpiveteau/S3-Express-Zip.git"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/rpiveteau/S3-Express-Zip/issues",
+    "mail": ""
+  },
+  "keywords": [
+    "s3",
+    "stream",
+    "zip",
+    "express",
+    "bucket",
+    "download",
+    "zipping",
+    "Content-Length",
+    "headers"
+  ]
 }
